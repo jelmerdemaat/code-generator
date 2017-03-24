@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Code generator</title>
+    <link rel="stylesheet" href="/vendor/normalize.css/normalize.css">
+    <style media="screen">
+        * {
+            box-sizing: border-box;
+        }
+
+        body,
+        textarea,
+        output {
+            padding: 1em;
+        }
+
+        output,
+        textarea {
+            font-size: 0.8em;
+        }
+
+        body {
+            line-height: 1.5;
+        }
+
+        h1 {
+            font-size: 1.5em;
+        }
+
+        button {
+            font-size: 1.2em;
+        }
+
+        input {
+            padding: 0.5em;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            line-height: inherit;
+            font-family: inherit;
+        }
+
+        fieldset {
+            margin: 1em 0;
+        }
+
+        em {
+            margin: 0 0.5em;
+        }
+
+        output {
+            display: block;
+            background: #eee;
+            border: 1px solid #ccc;
+        }
+
+        @media (min-width: 960px) {
+            input {
+                width: 2em;
+            }
+
+            main {
+                display: -ms-grid;
+                display: grid;
+                grid-column-gap: 2em;
+                -ms-grid-columns: 1fr 1fr;
+                    grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section>
+            <h1>Code generator</h1>
+            <form action="/">
+                <fieldset>
+                    <legend>Formule</legend>
+                    <input title="Geef 1 letter op." type="text" name="transform_start" value="{{ transform_start }}" placeholder="A" maxlength="1" pattern="[a-zA-Z]" required>
+                    <em>wordt</em>
+                    <input title="Geef 1 letter op." type="text" name="transform_end" value="{{ transform_end }}" placeholder="B" maxlength="1" pattern="[a-zA-Z]" required>
+                </fieldset>
+                <fieldset>
+                    <legend>Originele tekst</legend>
+                    <textarea name="input" rows="20" cols="40" placeholder="Originele tekst" required>{{ input }}</textarea>
+                </fieldset>
+                <div><button type="submit">Doe berekenen dan!</button></div>
+            </form>
+        </section>
+        <section>
+            <h2>Code</h2>
+            <output name="result">{{ output }}</output>
+        </section>
+    </main>
+</body>
+</html>
