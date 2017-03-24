@@ -2,26 +2,28 @@ const alphabet = 'abcdefghijklmnopqrstuvwxyz';
 
 // Source of CaesarCipher function: http://stackoverflow.com/a/33948669
 function CaesarCipher(str, num) {
-    let newStr = '',
-        i = 0;
+    let newStr = '', i = 0;
 
     for (i; i < str.length; i++) {
-        let char = str[i],
-            isUpper = char === char.toUpperCase() ? true : false;
+        let char = str[i], isUpper = char === char.toUpperCase() ? true : false;
 
         char = char.toLowerCase();
 
         if (alphabet.indexOf(char) > -1) {
             let newIndex = alphabet.indexOf(char) + num;
 
-            if(newIndex < alphabet.length) {
-                isUpper ? newStr += alphabet[newIndex].toUpperCase() : newStr += alphabet[newIndex];
+            if (newIndex < alphabet.length) {
+                isUpper
+                    ? (newStr += alphabet[newIndex].toUpperCase())
+                    : (newStr += alphabet[newIndex]);
             } else {
                 let shiftedIndex = -(alphabet.length - newIndex);
-                isUpper ? newStr += alphabet[shiftedIndex].toUpperCase() : newStr += alphabet[shiftedIndex];
+                isUpper
+                    ? (newStr += alphabet[shiftedIndex].toUpperCase())
+                    : (newStr += alphabet[shiftedIndex]);
             }
         } else {
-            if(char === '\n') {
+            if (char === '\n') {
                 newStr += '<br>';
             } else {
                 newStr += char;
@@ -32,7 +34,7 @@ function CaesarCipher(str, num) {
     return newStr;
 }
 
-module.exports = (data) => {
+module.exports = data => {
     return new Promise((resolve, reject) => {
         if (!data.transform_start) {
             reject(Error('No "transform start" given'));
@@ -42,10 +44,9 @@ module.exports = (data) => {
             reject(Error('No "transform end" given'));
         }
 
-        let step =
-            alphabet.indexOf(data.transform_end.toLowerCase())
-            - alphabet.indexOf(data.transform_start.toLowerCase());
+        let step = alphabet.indexOf(data.transform_end.toLowerCase()) -
+            alphabet.indexOf(data.transform_start.toLowerCase());
 
         resolve(CaesarCipher(data.input, step));
     });
-}
+};
