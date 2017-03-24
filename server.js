@@ -8,24 +8,27 @@ app.set('port', (process.env.PORT || 3000));
 
 app.use('/vendor/', express.static('node_modules/'));
 
-app.use('/', (req, res) => {
-    generate(req.query)
-        .then(data => {
-            res.render(
-                path.join(__dirname, '/views/', req.baseUrl),
-                Object.assign(req.query, {
-                    output: data
-                })
-            );
+function render (req, res, output = '', status = 200) {
+    res.status(status).render(
+        path.join(__dirname, '/views/', req.baseUrl),
+        Object.assign(req.query, {
+            output: output
         })
-        .catch(error => {
-            res.status(400).render(
-                path.join(__dirname, '/views/', req.baseUrl),
-                Object.assign(req.query, {
-                    output: error
-                })
-            );
-        });
+    );
+}
+
+app.use('/', (req, res) => {
+    if (req.query && req.query.input) {
+        generate(req.query)
+            .then(data => {
+                render(req, res, data);
+            })
+            .catch(error => {
+                render(req, res, error, 400);
+            });
+    } else {
+        render(req, res);
+    }
 });
 
 app.use((req, res) => {

@@ -59,8 +59,12 @@
             border: 1px solid #ccc;
         }
 
-        @media (min-width: 960px) {
-            input {
+        label {
+            display: block;
+        }
+
+        @media (min-width: 760px) {
+            .code {
                 width: 2em;
             }
 
@@ -81,15 +85,21 @@
             <form action="/">
                 <fieldset>
                     <legend>Formule</legend>
-                    <input title="Geef 1 letter op." type="text" name="transform_start" value="{{ transform_start }}" placeholder="A" maxlength="1" pattern="[a-zA-Z]" required>
+                    <label for="alphabet">Alfabet</label>
+                    <input required type="text" name="alphabet" id="alphabet" value="{{ alphabet or 'abcdefghijklmnopqrstuvwxyz1234567890' }}">
+                    <div>en</div>
+                    <input class="code" title="Geef 1 letter of cijfer op." type="text" name="transform_start" value="{{ transform_start or 'a' }}" placeholder="a" maxlength="1" pattern="[a-zA-Z0-9]" required>
                     <em>wordt</em>
-                    <input title="Geef 1 letter op." type="text" name="transform_end" value="{{ transform_end }}" placeholder="B" maxlength="1" pattern="[a-zA-Z]" required>
+                    <input class="code" title="Geef 1 letter of cijfer op." type="text" name="transform_end" value="{{ transform_end or 'b' }}" placeholder="b" maxlength="1" pattern="[a-zA-Z0-9]" required>
                 </fieldset>
                 <fieldset>
                     <legend>Originele tekst</legend>
-                    <textarea name="input" rows="20" cols="40" placeholder="Originele tekst" required>{{ input }}</textarea>
+                    <textarea maxlength="1750" name="input" rows="10" cols="40" placeholder="Originele tekst" required>{{ input }}</textarea>
                 </fieldset>
-                <div><button type="submit">Doe berekenen dan!</button></div>
+                <div>
+                    <button type="submit">Doe berekenen dan!</button>
+                    <a href="/">Reset</a>
+                </div>
             </form>
         </section>
         <section>

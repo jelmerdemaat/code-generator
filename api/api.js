@@ -1,4 +1,6 @@
-const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+'use strict';
+
+let alphabet;
 
 // Source of CaesarCipher function: http://stackoverflow.com/a/33948669
 function CaesarCipher(str, num) {
@@ -43,6 +45,12 @@ module.exports = data => {
         if (!data.transform_end) {
             reject(Error('No "transform end" given'));
         }
+
+        if (!data.alphabet) {
+            reject(Error('No "alphabet" given'));
+        }
+
+        alphabet = data.alphabet;
 
         let step = alphabet.indexOf(data.transform_end.toLowerCase()) -
             alphabet.indexOf(data.transform_start.toLowerCase());
