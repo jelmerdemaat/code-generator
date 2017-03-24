@@ -4,6 +4,7 @@ const express = require('express'),
     generate = require('./api/api');
 
 app.set('view engine', 'twig');
+app.set('port', (process.env.PORT || 3000));
 
 app.use('/vendor/', express.static('node_modules/'));
 
@@ -27,6 +28,10 @@ app.use('/', (req, res) => {
         });
 });
 
-app.listen(3000, function() {
-    console.log('App listening on http://localhost:3000');
+app.use((req, res) => {
+	res.status(404).send('Damn! 4-oh-4!');
+});
+
+app.listen(app.get('port'), function() {
+    console.log(`App listening on http://localhost:${app.get('port')}`);
 });
