@@ -1,6 +1,7 @@
 {
     "name": "Code generator",
     "short_name": "Code generator",
+    "start_url": "/",
     "icons": [
         {
             "src": "/favicons/android-chrome-192x192.png",
