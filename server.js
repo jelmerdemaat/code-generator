@@ -7,6 +7,27 @@ app.set('view engine', 'twig');
 app.set('port', (process.env.PORT || 3000));
 
 app.use('/vendor/', express.static('node_modules/'));
+app.use('/favicons/', express.static('favicons/'));
+app.get('/sw.js', express.static(path.join(__dirname, '/sw/')));
+app.get('/manifest.json', (req, res) => res.sendFile(path.join(__dirname, 'manifest.json')));
+
+app.get('/api', (req, res) => {
+    if (req.query && req.query.input) {
+        generate(req.query)
+            .then(data => {
+                res.json(
+                    Object.assign(req.query, {
+                        output: data
+                    })
+                );
+            })
+            .catch(error => {
+                res.status(400).json({ 'error': error });
+            });
+    } else {
+        res.status(400).json({ 'error': 'No input given' });
+    }
+});
 
 function render (req, res, output = '', status = 200) {
     res.status(status).render(
@@ -17,7 +38,7 @@ function render (req, res, output = '', status = 200) {
     );
 }
 
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
     if (req.query && req.query.input) {
         generate(req.query)
             .then(data => {

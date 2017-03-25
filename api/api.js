@@ -4,10 +4,12 @@ let alphabet;
 
 // Source of CaesarCipher function: http://stackoverflow.com/a/33948669
 function CaesarCipher(str, num) {
-    let newStr = '', i = 0;
+    let newStr = '',
+        i = 0;
 
     for (i; i < str.length; i++) {
-        let char = str[i], isUpper = char === char.toUpperCase() ? true : false;
+        let char = String(str[i]);
+        let isUpper = (String(char) === String(char).toUpperCase()) ? true : false;
 
         char = char.toLowerCase();
 
