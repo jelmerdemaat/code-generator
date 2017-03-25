@@ -9,7 +9,6 @@
     "express": "^4.15.2",
     "nodemon": "^1.11.0",
     "normalize.css": "^5.0.0",
-    "prettier": "^0.22.0",
     "twig": "^1.10.4"
   },
   "description": "To generate codes",
@@ -18,6 +17,10 @@
     "dev": "nodemon --inspect server.js",
     "start": "nodemon server.js",
     "prettier": "prettier *.js --write --single-quote --tab-width=4 & prettier api/*.js --write --single-quote --tab-width=4",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ava"
+  },
+  "devDependencies": {
+    "ava": "^0.18.2",
+    "prettier": "^0.22.0"
   }
 }
