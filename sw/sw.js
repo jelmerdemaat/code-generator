@@ -1,4 +1,4 @@
-const CACHE_VERSION = 4,
+const CACHE_VERSION = 5,
       CACHE_NAME = `sw-v${CACHE_VERSION}`,
       CACHE_FILES = [
         'html',
@@ -24,8 +24,29 @@ self.addEventListener('install', (event) => {
         caches.open(CACHE_NAME).then((cache) => {
             // And add resources to it
             return cache.addAll([
-                './'
+                '.'
             ]);
+        })
+    );
+});
+
+// Deleting old caches
+// The 'activate' event is generally used to do stuff that would have broken
+// the previous version while it was still running, for example
+// getting rid of old caches.
+this.addEventListener('activate', function(event) {
+    event.waitUntil(
+        caches.keys().then(function(keyList) {
+            // For all cache names, run this promise
+            return Promise.all(keyList.map(function(key) {
+                // If the key (name) doesn't match our current version,
+                // throw it away
+                console.log('Checking', key);
+                if (key !== CACHE_NAME) {
+                    console.log('Deleting', key);
+                    return caches.delete(key);
+                }
+            }));
         })
     );
 });
@@ -39,7 +60,7 @@ self.addEventListener('fetch', function(event) {
     // matches the request
     caches.match(event.request).then(function(response) {
         return response || fetch(event.request).then(function(response) {
-            if (CACHE_REGEX.test(event.request.url)) {
+            if (CACHE_REGEX.test(event.request.url) || event.request.mode === 'navigate') {
                 return caches.open(CACHE_NAME).then(function(cache) {
                     console.log(`Putting ${event.request.url} in cache`);
                     cache.put(event.request, response.clone());
