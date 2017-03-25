@@ -1,7 +1,7 @@
 Code generator
 --------------
 
-![Travis CI](https://travis-ci.org/jelmerdemaat/code-generator.svg?branch=master)
+**API** [![Travis CI build status](https://travis-ci.org/jelmerdemaat/code-generator.svg?branch=master)](https://travis-ci.org/jelmerdemaat/code-generator)
 
 A tool to generate simple “coded” texts.
 
