@@ -2,9 +2,10 @@
     "name": "Code generator",
     "short_name": "Code generator",
     "start_url": "/",
+    "lang": "nl",
     "icons": [
         {
-            "src": "/favicons/android-chrome-144x144",
+            "src": "/favicons/android-chrome-144x144.png",
             "sizes": "144x144",
             "type": "image/png"
         },
