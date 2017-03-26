@@ -17,10 +17,16 @@ function CaesarCipher(str, num) {
         if (alphabet.indexOf(char) > -1) {
             let newIndex = alphabet.indexOf(char) + num;
 
-            if (newIndex < alphabet.length) {
+            if (newIndex < alphabet.length && newIndex >= 0) {
                 isUpper
                     ? (newStr += alphabet[newIndex].toUpperCase())
                     : (newStr += alphabet[newIndex]);
+            } else if (newIndex < 1) {
+                isUpper
+                    ? (newStr += alphabet[
+                          alphabet.length + newIndex
+                      ].toUpperCase())
+                    : (newStr += alphabet[alphabet.length + newIndex]);
             } else {
                 let shiftedIndex = -(alphabet.length - newIndex);
                 isUpper
