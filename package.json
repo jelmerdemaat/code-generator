@@ -3,7 +3,7 @@
   "name": "code-generator",
   "author": "Jelmer de Maat",
   "private": true,
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "MIT",
   "dependencies": {
     "express": "^4.15.2",
